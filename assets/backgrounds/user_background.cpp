@@ -26,7 +26,7 @@ namespace user_background_setup{
 
         if(ImGui::Button("Upload Background")){
             //we set allowable file types and get the user's environment path/downloads
-            char const * filter_patterns[2] = {"*jpg", "*.png"};
+            char const * filter_patterns[2] = {"*.jpg", "*.png"};
             const char* retrieved_user_path = getenv("HOME");
             std::string appended_path { "/Downloads" }; 
             std::string retrieved_user_download_path { (std::string)retrieved_user_path + appended_path };
