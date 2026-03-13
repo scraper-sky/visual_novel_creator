@@ -1,0 +1,134 @@
+Some notes for myself:
+Purpose of this project: build a visual novel creator 
+
+To run the project:
+    cd /Users/jerryxiao/cplusplusprojects/visual_novel_creator
+    rm -rf build
+    mkdir build && cd build
+    mkdir -p local_assets/local_sprites
+    mkdir -p local_assets/local_sprites
+    cmake ..
+    make
+    ./vn_creator #this starts the build 
+
+Git commands:
+    - git init
+    - git status
+    - git add .
+    - git add filename.cpp
+    - git commit -m "commit message"
+    - git log
+    - git push origin main
+    - git push
+    - git pull
+    - git branch branch-name #create a branch 
+    - git checkout -b branch-name #create and switch to new branch
+    - git branch -a #view all branches
+    - git branch -d branch-name
+    - git reset --soft HEAD~1
+    - git reset --hard HEAD~1
+    - git diff
+    - git stash
+    - git stash pop
+Pushing:
+    - git status //check status and what files are modifies
+    - git add .
+    - git commit -m "Add ImGui integration"
+    - git push 
+
+
+What each main component of this project does
+    build
+        - serves as the compilation folder
+        - keeps C++ code which gets converted into machine code/assembly while keeping the source code clean
+        - folder can be deleted anytime and then rebuilt
+    c_cpp_properties.json 
+        - tells vs code where to find the header files (.h) to autocomplete and catch errors
+        - helps VS Code IDE understand the project structure
+    main.cpp
+        - compiler first executes this before performing linkage for all the other files together
+        - main application loop that serves as window creation with user interface
+        - contains main application loop, window creation, user interface
+    rllmGui.cpp
+        - will bring together the ImGui and Raylib graphic libraries
+    imgui/Folder
+        - contains our user interface library
+        - imgui.cpp and other files which store functionalities 
+        - these functionalities include drawing, buttons, boxers, text, boxers, sliders, config settings
+    CMakeLists.txt
+        - contains build instructions that tells compiler how to build the project
+        - currently contains all ImGui files to compile
+
+Relevant C++ syntax:
+    - see Obsidian Notes
+    - for implementing visual novel
+        - std::vector<T> 
+            - dynamic array for scenes, sprites, and more
+        - std::map<K,V>
+            - maybe use this as key-value storage between scene-id and data 
+        - std::string
+            - store text
+        - struct 
+            - just a struct
+
+ImGui Widgets to Use:
+    - ImGui::InputText()
+        - text input for scene dialogue
+    - ImGui::InputTextMultiline()	
+        - large text box for dialogue
+    - ImGui::Selectable()	
+        - list items (scene list, asset list)
+    - ImGui::ListBox()
+        - scrollable list of scenes/assets
+    - ImGui::BeginChild() / EndChild()	
+        - scrollable regions
+    - ImGui::BeginDragDropSource()	
+        - start dragging an item
+    - ImGui::SetDragDropPayload()	
+        - attach data to drag
+    - ImGui::EndDragDropSource()	
+        - end drag source
+    - ImGui::BeginDragDropTarget()	
+        - define drag zone
+    - ImGui::AcceptDragDropPayload()	
+        - receive dragged data
+    - ImGui::EndDragDropTarget()	
+        - end drop zone
+    - ImGui::Columns()	
+        - split into columns
+    - ImGui::BeginTabBar() / ImGui::BeginTabItem()
+        - tabs for different panels
+    - ImGui::BeginMenuBar()	
+        - top menu bar
+    - ImGui::TreeNode()	
+        - collapsible hierarchy
+    - ImGui::Image()
+        - Display texture
+    - ImGui::ImageButton()	
+        - Clickable image
+    - rlImGuiImage()	
+        - Raylib texture in ImGui
+    - rlImGuiImageSize()	
+        - Raylib texture at specific size
+
+Raylib Functions/Syntax to Use:
+    - LoadTexture()
+        - load image as texture
+    - UnloadTexture()
+        - free texture memory
+    - LoadImage() 
+        - load image for manipulation
+    - GetWorkingDirectory()
+        -  current directory path
+    - GetFileName()
+        - extract filename from path
+
+
+
+Relevant raylib syntax sheet:
+    - https://www.raylib.com/cheatsheet/cheatsheet.html
+
+Relevant imgui functions:
+    - when calling functions make sure to 
+
+
