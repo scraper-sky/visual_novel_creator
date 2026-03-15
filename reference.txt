@@ -6,7 +6,7 @@ To run the project:
     rm -rf build
     mkdir build && cd build
     mkdir -p local_assets/local_sprites
-    mkdir -p local_assets/local_sprites
+    mkdir -p local_assets/local_backgrounds
     cmake ..
     make
     ./vn_creator #this starts the build 

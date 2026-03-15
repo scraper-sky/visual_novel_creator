@@ -1,5 +1,6 @@
 #include <iostream>
 #include <raylib.h>
+#include <filesystem>
 #include "imgui.h"
 #include "rlImGui.h"
 #include "../../assets/scenes/scenes.h"
@@ -21,13 +22,16 @@ namespace scene_panel_setup{
         ImGui::Begin("Scene Storage");
         ImGui::Columns(3, "Uploaded files are shown here");
         ImGui::Text("Backgrounds");
-        if(scene_setup_storage::background_list.size() != 0){
-            if(ImGui::BeginCombo("", scene_setup_storage::background_list[background_current].file_name.c_str())){
+        if(scene_setup_storage::background_list.size() != 0){ 
+            //my setup for a draggable list of background ids; run through list to obtain selectable ones from uploaded list
+            if(ImGui::BeginCombo("##bg_combo", std::filesystem::path(scene_setup_storage::background_list[background_current].file_name).filename().string().c_str())){
                 for(int i = 0; i < scene_setup_storage::background_list.size(); i++){
+                    ImGui::PushID(i);
                     bool is_selected = (background_current == i);
-                    if(ImGui::Selectable(scene_setup_storage::background_list[i].file_name.c_str(), is_selected)){
+                    if(ImGui::Selectable(std::filesystem::path(scene_setup_storage::background_list[i].file_name).filename().string().c_str(), is_selected)){
                         background_current = i;
                     }
+                    ImGui::PopID();
                 }
                 ImGui::EndCombo();
             }
@@ -35,12 +39,15 @@ namespace scene_panel_setup{
         ImGui::NextColumn();
         ImGui::Text("Sprites");
         if(scene_setup_storage::sprite_list.size() != 0){
-            if(ImGui::BeginCombo("", scene_setup_storage::sprite_list[sprite_current].file_name.c_str())){
+            //same structure as background list storage; set-up for sprite list
+            if(ImGui::BeginCombo("##sprite_combo", std::filesystem::path(scene_setup_storage::sprite_list[sprite_current].file_name).filename().string().c_str())){
                 for(int i = 0; i < scene_setup_storage::sprite_list.size(); i++){
+                    ImGui::PushID(i);
                     bool is_selected = (sprite_current == i);
-                    if(ImGui::Selectable(scene_setup_storage::sprite_list[i].file_name.c_str(), is_selected)){
+                    if(ImGui::Selectable(std::filesystem::path(scene_setup_storage::sprite_list[i].file_name).filename().string().c_str(), is_selected)){
                         sprite_current = i;
                     }
+                    ImGui::PopID();
                 }
                 ImGui::EndCombo();
             }
