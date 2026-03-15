@@ -22,14 +22,17 @@ namespace editor_window_setup{
 }
 
 namespace scene_panel_setup{
+    extern bool scene_panel_exit_state;
     void display_scene_storage();
 }
 
 namespace user_sprites_setup{
+    extern bool upload_sprites_exit_state;
     void upload_sprite_button();
 }
 
 namespace user_background_setup{
+    extern bool upload_backgrounds_exit_state;
     void upload_backgrounds_button();
 }
 
@@ -95,12 +98,15 @@ namespace button_setup{
             //buttons stored here; when pressed, the Boolean's are set to true and the display/upload functions are rendered true
             if(ImGui::Button("Access Scene Storage", ImVec2(button_window_width, button_window_height))){
                 show_scene_storage = true;
+                scene_panel_setup::scene_panel_exit_state = true;
             }
             if(ImGui::Button("Upload Sprites", ImVec2(button_window_width, button_window_height))){
                 show_user_sprite_upload = true;
+                user_sprites_setup::upload_sprites_exit_state = true;
             }
             if(ImGui::Button("Upload Backgrounds", ImVec2(button_window_width, button_window_height))){
                 show_user_background_upload = true;
+                user_background_setup::upload_backgrounds_exit_state = true;
             }
             if(ImGui::Button("Toggle Light Mode", ImVec2(button_window_width, button_window_height))){
                 chosen_color = start_window_setup::toggle_color(chosen_color);
