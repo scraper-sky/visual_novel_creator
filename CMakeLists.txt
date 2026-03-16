@@ -21,6 +21,7 @@ add_executable(vn_creator
     raylib-imgui/rlImGui.cpp
     screens/editor_screen.cpp
     screens/ui/buttons.cpp
+    screens/ui/preview_panel.cpp
     screens/ui/scene_panel.cpp
     tinyfiledialogs/tinyfiledialogs.c
     ${IMGUI_SOURCES}

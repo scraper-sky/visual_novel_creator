@@ -33,6 +33,8 @@ namespace scene_setup{
         std::vector<scene_setup::Sprite> scene_sprites;
         int scene_background_id;
         std::string text;
+        float background_scale;
+        float sprite_scale;
     };
     
 }

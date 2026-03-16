@@ -13,9 +13,7 @@ namespace scene_setup_storage{
 }
 
 namespace scene_panel_setup{
-    static int scene_current { 0 };
-    static int background_current { 0 };
-    static int sprite_current { 0 };
+    int scene_current { 0 }, background_current { 0 }, sprite_current { 0 };
     bool scene_panel_exit_state { false };
     void display_scene_storage(){
         int window_width { 200 }, window_height { 50 };
@@ -67,6 +65,26 @@ namespace scene_panel_setup{
             }
             ImGui::NextColumn();
             ImGui::Text("Scenes");
+            if(scene_setup_storage::scene_list.size() != 0){
+                std::string scene_name { "Scene " + std::to_string(scene_setup_storage::scene_list[scene_current].scene_id) };
+                if(ImGui::BeginCombo("##scene_combo", scene_name.c_str())){
+                    for(int i = 0; i < scene_setup_storage::scene_list.size(); i++){
+                        ImGui::PushID(i);
+                        bool is_selected = (scene_current == i);
+                        std::string current_scene_name { "Scene " + std::to_string(scene_setup_storage::scene_list[i].scene_id) };
+                        if(ImGui::Selectable(current_scene_name.c_str(), is_selected)){
+                            scene_current = i;
+                        }
+                        if(ImGui::BeginDragDropSource()){
+                            ImGui::SetDragDropPayload("SCENE_ID", &i, sizeof(int));
+                            ImGui::Text("Dragging: %s", current_scene_name.c_str());
+                            ImGui::EndDragDropSource();
+                        }
+                        ImGui::PopID();
+                    }
+                    ImGui::EndCombo();
+                }
+            }
             ImGui::NextColumn();
             ImGui::End();
         }

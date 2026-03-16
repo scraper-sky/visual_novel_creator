@@ -21,6 +21,8 @@ namespace editor_window_setup{
     void main_loop();
 }
 
+//forward declaration of button UIs that we will wire up below 
+
 namespace scene_panel_setup{
     extern bool scene_panel_exit_state;
     void display_scene_storage();
@@ -34,6 +36,16 @@ namespace user_sprites_setup{
 namespace user_background_setup{
     extern bool upload_backgrounds_exit_state;
     void upload_backgrounds_button();
+}
+
+namespace create_scene_panel{
+    extern bool create_scene_panel_exit_state;
+    extern int background_dropped_id, sprite_dropped_id;
+    extern int create_button_width, create_button_height;
+    extern float background_image_scale, sprite_image_scale;
+    extern int background_image_width, background_image_height;
+    extern int sprite_image_width, sprite_image_height;
+    void display_create_scene_panel();
 }
 
 namespace button_setup{
@@ -75,7 +87,7 @@ namespace button_setup{
         int button_window_x_pos { 300 }, button_window_y_pos { 120 }, button_window_width { 350 }, button_window_height { 25 };
 
         static bool show_window { true };
-        static bool show_scene_storage { false }, show_user_sprite_upload { false }, show_user_background_upload { false };
+        static bool show_scene_storage { false }, show_user_sprite_upload { false }, show_user_background_upload { false }, show_create_scene { false };
 
         if(show_window){
 
@@ -94,6 +106,9 @@ namespace button_setup{
             if(show_user_background_upload){
                 user_background_setup::upload_backgrounds_button();
             }
+            if(show_create_scene){
+                create_scene_panel::display_create_scene_panel();
+            }
 
             //buttons stored here; when pressed, the Boolean's are set to true and the display/upload functions are rendered true
             if(ImGui::Button("Access Scene Storage", ImVec2(button_window_width, button_window_height))){
@@ -107,6 +122,10 @@ namespace button_setup{
             if(ImGui::Button("Upload Backgrounds", ImVec2(button_window_width, button_window_height))){
                 show_user_background_upload = true;
                 user_background_setup::upload_backgrounds_exit_state = true;
+            }
+            if(ImGui::Button("Create Scene", ImVec2(button_window_width, button_window_height))){
+                show_create_scene = true;
+                create_scene_panel::create_scene_panel_exit_state = true;
             }
             if(ImGui::Button("Toggle Light Mode", ImVec2(button_window_width, button_window_height))){
                 chosen_color = start_window_setup::toggle_color(chosen_color);
