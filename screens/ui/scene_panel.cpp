@@ -29,9 +29,15 @@ namespace scene_panel_setup{
                 if(ImGui::BeginCombo("##bg_combo", std::filesystem::path(scene_setup_storage::background_list[background_current].file_name).filename().string().c_str())){
                     for(int i = 0; i < scene_setup_storage::background_list.size(); i++){
                         ImGui::PushID(i);
-                        bool is_selected = (background_current == i);
+                        bool is_selected = (background_current == i); //check if current index is the one selected by the user
                         if(ImGui::Selectable(std::filesystem::path(scene_setup_storage::background_list[i].file_name).filename().string().c_str(), is_selected)){
                             background_current = i;
+                        }
+                        //set every background in the list as being draggable
+                        if(ImGui::BeginDragDropSource()){
+                            ImGui::SetDragDropPayload("BACKGROUND_ID", &i, sizeof(int));
+                            ImGui::Text("Dragging: %s", std::filesystem::path(scene_setup_storage::background_list[i].file_name).filename().string().c_str());
+                            ImGui::EndDragDropSource();
                         }
                         ImGui::PopID();
                     }
@@ -48,6 +54,11 @@ namespace scene_panel_setup{
                         bool is_selected = (sprite_current == i);
                         if(ImGui::Selectable(std::filesystem::path(scene_setup_storage::sprite_list[i].file_name).filename().string().c_str(), is_selected)){
                             sprite_current = i;
+                        }
+                        if(ImGui::BeginDragDropSource()){
+                            ImGui::SetDragDropPayload("SPRITE_ID", &i, sizeof(int));
+                            ImGui::Text("Dragging: %s", std::filesystem::path(scene_setup_storage::sprite_list[i].file_name).filename().string().c_str());
+                            ImGui::EndDragDropSource();
                         }
                         ImGui::PopID();
                     }
