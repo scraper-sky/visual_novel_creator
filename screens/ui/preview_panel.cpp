@@ -30,6 +30,7 @@ namespace create_scene_panel{
     float background_image_scale { 1.0 }, sprite_image_scale { 1.0 };
     int background_image_width { 300 }, background_image_height { 300 };
     int sprite_image_width { 50 }, sprite_image_height { 50 };
+    static char dialogue_text[1024] { "" };
 
     void display_create_scene_panel(){
         if(create_scene_panel_exit_state){
@@ -68,6 +69,8 @@ namespace create_scene_panel{
                 rlImGuiImageSize(&sprite_image, static_cast<int>(scaled_sprite_height), static_cast<int>(scaled_sprite_width));
 
             }
+
+            ImGui::InputTextMultiline("##dialogue", dialogue_text, sizeof(dialogue_text), ImVec2(300, 200)); 
 
             if(ImGui::Button("Reset Background", ImVec2(create_button_width, create_button_height))){
                 background_dropped_id = -1;
