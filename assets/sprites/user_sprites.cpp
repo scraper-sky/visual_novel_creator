@@ -38,32 +38,33 @@ namespace user_sprites_setup{
                 //c_str() used to cast retrieved user download past from std::string to char const *
                 //this function returns path to user-selected file; next we use filesystem library to implement the actual file storage
                 char const * uploaded_sprite { tinyfd_openFileDialog("", retrieved_user_download_path.c_str(), 2, filter_patterns, "image files", 0) };
-                assert(uploaded_sprite != NULL);
+                if(uploaded_sprite != NULL){
 
-                //we copy uploaded path into a local destination folder using filesystem path 
-                fs::path source { uploaded_sprite };
-                fs::path destination_dir("local_assets/local_sprites");
-                fs::path destination { destination_dir / source.filename() };
+                    //we copy uploaded path into a local destination folder using filesystem path 
+                    fs::path source { uploaded_sprite };
+                    fs::path destination_dir("local_assets/local_sprites");
+                    fs::path destination { destination_dir / source.filename() };
 
-                try { //try allows program to continue running even if an error occurs with file uploading
-                    bool copied_file_to_destination = fs::copy_file(source, destination);
+                    try { //try allows program to continue running even if an error occurs with file uploading
+                        bool copied_file_to_destination = fs::copy_file(source, destination);
 
-                    //increment sprite counter and add the new sprite into the sprite_list
-                    if(copied_file_to_destination){
-                        sprite_counter += 1;
-                        scene_setup::Vector2 default_sprite_position { 0 , 0 };
-                        Texture2D sprite_image = LoadTexture(destination.string().c_str());
-                        float default_scale { 1.0 };
-                        scene_setup::Sprite new_sprite {sprite_counter, (std::string) uploaded_sprite, default_sprite_position, sprite_image, default_scale};
-                        scene_setup_storage::sprite_list.push_back(new_sprite); //add uploaded sprite to global sprites list
-                        std::cout << "New sprite added into sprite list!";
+                        //increment sprite counter and add the new sprite into the sprite_list
+                        if(copied_file_to_destination){
+                            sprite_counter += 1;
+                            scene_setup::Vector2 default_sprite_position { 0 , 0 };
+                            Texture2D sprite_image = LoadTexture(destination.string().c_str());
+                            float default_scale { 1.0 };
+                            scene_setup::Sprite new_sprite {sprite_counter, (std::string) uploaded_sprite, default_sprite_position, sprite_image, default_scale};
+                            scene_setup_storage::sprite_list.push_back(new_sprite); //add uploaded sprite to global sprites list
+                            std::cout << "New sprite added into sprite list!";
+                        }
+                        else {
+                            std::cout << "File not handled";
+                        }
                     }
-                    else {
-                        std::cout << "File not handled";
+                    catch(fs::filesystem_error const& ex){
+                        std::cerr << "Filesystem error: " << ex.what() << std::endl;
                     }
-                }
-                catch(fs::filesystem_error const& ex){
-                    std::cerr << "Filesystem error: " << ex.what() << std::endl;
                 }
             }
             ImGui::End();

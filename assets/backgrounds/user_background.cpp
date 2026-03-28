@@ -37,31 +37,32 @@ namespace user_background_setup{
                 //c_str() used to cast retrieved user download past from std::string to char const *
                 //this function returns path to user-selected file; next we use filesystem library to implement the actual file storage
                 char const * uploaded_background { tinyfd_openFileDialog("", retrieved_user_download_path.c_str(), 2, filter_patterns, "image files", 0) };
-                assert(uploaded_background != NULL);
+                if(uploaded_background != NULL){
 
-                //copy uploaded destination into a file path that we set here using the filesystem path
-                fs::path source { uploaded_background }; 
-                fs::path destination_dir("local_assets/local_backgrounds");
-                fs::path destination { destination_dir / source.filename() };
+                    //copy uploaded destination into a file path that we set here using the filesystem path
+                    fs::path source { uploaded_background }; 
+                    fs::path destination_dir("local_assets/local_backgrounds");
+                    fs::path destination { destination_dir / source.filename() };
 
-                try{ //like before, try allows program to continue running even if an error occurs with file uploading
-                    bool copied_file_to_destination = fs::copy_file(source, destination);
+                    try{ //like before, try allows program to continue running even if an error occurs with file uploading
+                        bool copied_file_to_destination = fs::copy_file(source, destination);
 
-                    //increment background counter and add the new background into the background_list
-                    if(copied_file_to_destination){
-                        background_counter += 1;
-                        scene_setup::Vector2 default_background_position { 0 , 0 }; 
-                        Texture2D background_image = LoadTexture(destination.string().c_str());
-                        float default_scale { 1.0 };
-                        scene_setup::Background new_background { background_counter, (std::string) uploaded_background, default_background_position, background_image, default_scale};
-                        scene_setup_storage::background_list.push_back(new_background); //add new background to global background list
+                        //increment background counter and add the new background into the background_list
+                        if(copied_file_to_destination){
+                            background_counter += 1;
+                            scene_setup::Vector2 default_background_position { 0 , 0 }; 
+                            Texture2D background_image = LoadTexture(destination.string().c_str());
+                            float default_scale { 1.0 };
+                            scene_setup::Background new_background { background_counter, (std::string) uploaded_background, default_background_position, background_image, default_scale};
+                            scene_setup_storage::background_list.push_back(new_background); //add new background to global background list
+                        }
+                        else{
+                            std::cout << "File not handled";
+                        }
+                    }       
+                    catch(fs::filesystem_error const& ex){
+                        std::cerr << "Filesystem error: " << ex.what() << std::endl;
                     }
-                    else{
-                        std::cout << "File not handled";
-                    }
-                }       
-                catch(fs::filesystem_error const& ex){
-                    std::cerr << "Filesystem error: " << ex.what() << std::endl;
                 }    
             }
             ImGui::End();
