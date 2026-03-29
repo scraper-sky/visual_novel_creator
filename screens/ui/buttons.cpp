@@ -48,6 +48,11 @@ namespace create_scene_panel{
     void display_create_scene_panel();
 }
 
+namespace create_visual_novel{
+    extern bool create_visual_novel_exit_state;
+    void display_visual_novel_creator();
+}
+
 namespace button_setup{
 
     void show_editor_window(){
@@ -87,7 +92,7 @@ namespace button_setup{
         int button_window_x_pos { 300 }, button_window_y_pos { 120 }, button_window_width { 350 }, button_window_height { 25 };
 
         static bool show_window { true };
-        static bool show_scene_storage { false }, show_user_sprite_upload { false }, show_user_background_upload { false }, show_create_scene { false };
+        static bool show_scene_storage { false }, show_user_sprite_upload { false }, show_user_background_upload { false }, show_create_scene { false }, show_create_vn { false };
 
         if(show_window){
 
@@ -109,6 +114,9 @@ namespace button_setup{
             if(show_create_scene){
                 create_scene_panel::display_create_scene_panel();
             }
+            if(show_create_vn){
+                create_visual_novel::display_visual_novel_creator();
+            }
 
             //buttons stored here; when pressed, the Boolean's are set to true and the display/upload functions are rendered true
             if(ImGui::Button("Access Scene Storage", ImVec2(button_window_width, button_window_height))){
@@ -126,6 +134,10 @@ namespace button_setup{
             if(ImGui::Button("Create Scene", ImVec2(button_window_width, button_window_height))){
                 show_create_scene = true;
                 create_scene_panel::create_scene_panel_exit_state = true;
+            }
+            if(ImGui::Button("Create Visual Novel", ImVec2(button_window_width, button_window_height))){
+                show_create_vn = true;
+                create_visual_novel::create_visual_novel_exit_state = true;
             }
             if(ImGui::Button("Toggle Light Mode", ImVec2(button_window_width, button_window_height))){
                 chosen_color = start_window_setup::toggle_color(chosen_color);

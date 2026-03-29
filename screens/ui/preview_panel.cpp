@@ -4,7 +4,7 @@
 #include "rlImGui.h"
 #include "../../assets/scenes/scenes.h"
 
-extern int scene_counter; //used to link scene_counter to global scene_counter declafed in scenes.cpp
+extern int scene_counter; //used to link scene_counter to global scene_counter declared in scenes.cpp
 
 //forward declaration of storage with our exact scene setup
 namespace scene_setup_storage{
@@ -35,6 +35,7 @@ namespace create_scene_panel{
 
     void display_create_scene_panel(){
         if(create_scene_panel_exit_state){
+            
             ImGui::SetNextWindowSize(ImVec2(window_width, window_height), ImGuiCond_FirstUseEver);
             ImGui::Begin("Create Scene", &create_scene_panel_exit_state);
             ImGui::Columns(2, "##create_scene_columns");
@@ -83,6 +84,7 @@ namespace create_scene_panel{
 
             ImGui::InputInt("Sprite X", &sprite_x); 
             ImGui::InputInt("Sprite Y", &sprite_y);
+            ImGui::InputInt("Dialogue Box Height", &dialogue_box_height);
 
 
             if(background_dropped_id != -1 && sprite_dropped_id != -1){

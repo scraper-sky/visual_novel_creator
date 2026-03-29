@@ -23,6 +23,7 @@ add_executable(vn_creator
     screens/ui/buttons.cpp
     screens/ui/preview_panel.cpp
     screens/ui/scene_panel.cpp
+    screens/ui/visual_novel_create.cpp
     tinyfiledialogs/tinyfiledialogs.c
     ${IMGUI_SOURCES}
 )
