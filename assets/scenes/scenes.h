@@ -35,6 +35,8 @@ namespace scene_setup{
         std::string text;
         float background_scale;
         float sprite_scale;
+        int sprite_x;
+        int sprite_y;
     };
     
 }

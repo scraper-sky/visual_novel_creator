@@ -28,5 +28,5 @@ add_executable(vn_creator
     ${IMGUI_SOURCES}
 )
 
-target_include_directories(vn_creator PRIVATE imgui raylib-imgui tinyfiledialogs scenes)
+target_include_directories(vn_creator PRIVATE imgui raylib-imgui tinyfiledialogs scenes ${CMAKE_SOURCE_DIR})
 target_link_libraries(vn_creator raylib)

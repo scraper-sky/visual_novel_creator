@@ -68,7 +68,7 @@ namespace create_scene_panel{
                     std::vector<scene_setup::Sprite> scene_sprites;
                     scene_sprites.push_back(scene_setup_storage::sprite_list[sprite_dropped_id]);
                     std::string scene_text { dialogue_text };
-                    scene_setup::Scene new_scene { scene_counter, scene_sprites, background_dropped_id, scene_text, background_image_scale, sprite_image_scale};
+                    scene_setup::Scene new_scene { scene_counter, scene_sprites, background_dropped_id, scene_text, background_image_scale, sprite_image_scale, sprite_x, sprite_y};
                     scene_setup_storage::scene_list.push_back(new_scene);
                     std::cout << "Added new scene to scene list";
                 }

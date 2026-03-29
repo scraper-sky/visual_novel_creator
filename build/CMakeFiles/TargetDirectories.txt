@@ -1,3 +1,0 @@
-/Users/jerryxiao/cplusplusprojects/visual_novel_creator/build/CMakeFiles/vn_creator.dir
-/Users/jerryxiao/cplusplusprojects/visual_novel_creator/build/CMakeFiles/edit_cache.dir
-/Users/jerryxiao/cplusplusprojects/visual_novel_creator/build/CMakeFiles/rebuild_cache.dir
